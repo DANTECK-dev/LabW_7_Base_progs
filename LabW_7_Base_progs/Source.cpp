@@ -1,9 +1,16 @@
-#include <iostream>
-#include <time.h>
+#define _CRT_SECURE_NO_WARNINGS
 #define N 10
+#define M 1000
+
+#include <iostream>
+#include <string>
+#include <stdio.h>
+#include <conio.h>
+#include <time.h>
+
 using namespace std;
 
-int Ff(double *arr[N], double *res) {
+void Ff(double *arr[N], double *res) {
 	int c = 0;
 	double k = 0, gh;
 	srand(time(NULL));
@@ -24,14 +31,14 @@ int Ff(double *arr[N], double *res) {
 			*res = gh;
 		}
 	}
-	return *res;
+	cout<< *res;
 }
 
 int main() {
 	setlocale(LC_ALL, "rus");
-	double arr[N], res;
+	
 	/*¬се изменени€ массивов и строк в функци€х должны сохран€тьс€. 
-	≈сли сказано, что значение сохран€етс€ в переменной-аргументе, 
+	≈сли сказано, что значение сохран€етс€ в переменной - аргументе, 
 	то это значит, что все изменени€ с этой переменной должны отразитьс€ 
 	на оригинальной переменной, переданной в функцию,
 	а сама переменна€-аргумент €вл€етс€ указателем.
@@ -41,10 +48,38 @@ int main() {
 	вещественный массив и переменную. Ќаходит номер элемента, который 
 	ближе всех по значению к среднему арифметическому элементов 
 	массива и сохран€ет его в переменной-аргументе.*/
-	for (int i = 0; i < N; i++) {
-		arr[i] = rand();
-	}
 	
-	cout << Ff(arr[N], 0);
+	
+	//cout << Ff(arr[N], 0);
 
+	int c(0);
+	double summ(0), gh(0);
+	double arr[N]{0}, result(0);
+
+	srand(time(NULL));
+	
+	for (int i = 0; i < N; i++) {
+		arr[i] = rand() % 100;
+		summ += arr[i];
+		cout << arr[i]<<" ";
+	}
+		
+	//cout << summ << " " << N<<endl;
+	summ /= N;
+	result = arr[0];
+
+	for (int i = 0; i < N; i++) {
+		//if (arr[i] >= summ) gh = arr[i] - summ;
+		//if (arr[i] < summ) gh = summ + arr[i];
+
+		gh = abs(arr[i] - summ);
+
+		if (result > gh) {
+			result = gh;
+			c = i;
+		}
+	}
+	cout<< endl <<"ср. знач массива: " <<summ
+		<< "\tразность: " << result << "\tномер эл-та: " << c << endl;
 }
+
