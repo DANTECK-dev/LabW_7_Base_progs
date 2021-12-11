@@ -10,28 +10,33 @@
 
 using namespace std;
 
-void Ff(double *arr[N], double *res) {
-	int c = 0;
-	double k = 0, gh;
+int Ff(double arr[N], double result) {
+	int c(0);
+	double summ(0), gh(0);
+
 	srand(time(NULL));
 
 	for (int i = 0; i < N; i++) {
-		k += *arr[i];
-		c += 1;
+		arr[i] = rand() % 100;
+		summ += arr[i];
+		cout << arr[i] << " ";
 	}
 
-	*res = *arr[0];
-	cout << k << " " << c;
-	k /= c;
+	summ /= N;
+	result = arr[0];
+
 	for (int i = 0; i < N; i++) {
-		gh = *arr[N] - k;
-		gh += *arr[N] + k;
-		gh /= 2;
-		if (*res > gh) {
-			*res = gh;
+
+		gh = abs(arr[i] - summ);
+
+		if (result > gh) {
+			result = gh;
+			c = i;
 		}
 	}
-	cout<< *res;
+	cout << endl << "ср. знач массива: " << summ
+		<< "\tразность: " << result << "\tномер эл-та: " << c << endl;
+	return result;
 }
 
 int main() {
@@ -49,37 +54,9 @@ int main() {
 	ближе всех по значению к среднему арифметическому элементов 
 	массива и сохраняет его в переменной-аргументе.*/
 	
+	double arr[N]{ 0 };
+	double result(0), res(0);
 	
-	//cout << Ff(arr[N], 0);
-
-	int c(0);
-	double summ(0), gh(0);
-	double arr[N]{0}, result(0);
-
-	srand(time(NULL));
-	
-	for (int i = 0; i < N; i++) {
-		arr[i] = rand() % 100;
-		summ += arr[i];
-		cout << arr[i]<<" ";
-	}
-		
-	//cout << summ << " " << N<<endl;
-	summ /= N;
-	result = arr[0];
-
-	for (int i = 0; i < N; i++) {
-		//if (arr[i] >= summ) gh = arr[i] - summ;
-		//if (arr[i] < summ) gh = summ + arr[i];
-
-		gh = abs(arr[i] - summ);
-
-		if (result > gh) {
-			result = gh;
-			c = i;
-		}
-	}
-	cout<< endl <<"ср. знач массива: " <<summ
-		<< "\tразность: " << result << "\tномер эл-та: " << c << endl;
+	res = Ff(&arr[N], result);
+	system("pause");
 }
-
